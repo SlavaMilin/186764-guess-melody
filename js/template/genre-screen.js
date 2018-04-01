@@ -1,6 +1,8 @@
 import createDomElement from '../createDomElement';
+import render from '../render';
+import validateMelody from '../validateMelody';
 
-const exportValue = createDomElement(`
+const genreTemplate = createDomElement(`
 <section class="main main--level main--level-genre">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
     <circle
@@ -85,4 +87,15 @@ const exportValue = createDomElement(`
 </section>
 `);
 
-export default exportValue;
+const renderGenreScreen = () => {
+  const answer = document.querySelectorAll(`.main-answer`);
+  answer.forEach((item) => {
+    item.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      render(genreTemplate);
+      validateMelody();
+    });
+  });
+};
+
+export default renderGenreScreen;

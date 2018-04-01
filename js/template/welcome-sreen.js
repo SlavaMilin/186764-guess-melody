@@ -1,6 +1,8 @@
 import createDomElement from '../createDomElement';
+import render from "../render";
+import renderArtistScreen from './artist-screen';
 
-const exportValue = createDomElement(`
+const welcomeTemplate = createDomElement(`
 <section class="main main--welcome">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
   <button class="main-play">Начать игру</button>
@@ -13,4 +15,9 @@ const exportValue = createDomElement(`
 </section>
 `);
 
-export default exportValue;
+const renderWelcomeScreen = () => {
+  render(welcomeTemplate);
+  renderArtistScreen();
+};
+
+export default renderWelcomeScreen;

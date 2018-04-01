@@ -1,5 +1,5 @@
 import render from './render';
-import welcome from './template/welcome';
+import welcome from './template/welcome-sreen';
 
 const playAgain = () => {
   const replayBtn = document.querySelector(`.main-replay`);

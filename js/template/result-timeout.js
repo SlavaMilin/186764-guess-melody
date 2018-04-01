@@ -1,6 +1,8 @@
 import createDomElement from '../createDomElement';
+import render from '../render';
+import renderWelcomeScreen from "./welcome-sreen";
 
-const exportValue = createDomElement(`
+const timeoutTemplate = createDomElement(`
 <section class="main main--result">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
@@ -10,4 +12,12 @@ const exportValue = createDomElement(`
 </section>
 `);
 
-export default exportValue;
+const renderTimeoutScreen = () => {
+  render(timeoutTemplate);
+  const playAgainBtn = document.querySelector(`.main-replay`);
+  playAgainBtn.addEventListener(`click`, () => {
+    renderWelcomeScreen();
+  });
+};
+
+export default renderTimeoutScreen;

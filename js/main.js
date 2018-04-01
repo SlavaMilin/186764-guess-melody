@@ -1,13 +1,4 @@
-import welcome from './template/welcome';
-import render from './render';
-import startPlay from './start-play';
-import selectAnswer from './select-answer';
+import renderWelcomeScreen from './template/welcome-sreen';
 
-const renderMain = () => {
-  render(welcome);
-  startPlay(selectAnswer);
-};
+renderWelcomeScreen();
 
-renderMain();
-
-export default renderMain;

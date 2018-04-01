@@ -1,6 +1,8 @@
 import createDomElement from '../createDomElement';
+import render from '../render.js';
+import renderGenreScreen from './genre-screen';
 
-const exportValue = createDomElement(`
+const artistTemplate = createDomElement(`
 <section class="main main--level main--level-artist">
   <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
     <circle
@@ -62,4 +64,15 @@ const exportValue = createDomElement(`
 </section>
 `);
 
-export default exportValue;
+const renderArtistScreen = () => {
+  const btnPlay = document.querySelector(`.main-play`);
+  const onBtnPlayClick = (evt) => {
+    evt.preventDefault();
+    render(artistTemplate);
+    renderGenreScreen();
+  };
+  btnPlay.addEventListener(`click`, onBtnPlayClick);
+};
+
+export default renderArtistScreen;
+
