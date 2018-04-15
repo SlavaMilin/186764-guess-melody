@@ -1,4 +1,4 @@
-import render from './render';
+import {render} from "../core/util";
 import welcome from './template/welcome-sreen';
 
 const playAgain = () => {

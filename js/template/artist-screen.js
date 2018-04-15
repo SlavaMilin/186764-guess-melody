@@ -1,6 +1,9 @@
-import createDomElement from '../createDomElement';
-import render from '../render.js';
+import {render, createDomElement} from "../core/util";
+import {data} from "../data/data";
+import {timer} from "./timer";
+import {mistakes} from "./mistakes";
 import renderGenreScreen from './genre-screen';
+import {initialSettings} from "../data/initialSettings";
 
 const artistTemplate = createDomElement(`
 <section class="main main--level main--level-artist">
@@ -10,16 +13,9 @@ const artistTemplate = createDomElement(`
       class="timer-line"
       style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
-    <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-      <span class="timer-value-mins">05</span><!--
-      --><span class="timer-value-dots">:</span><!--
-      --><span class="timer-value-secs">00</span>
-    </div>
+    ${timer}
   </svg>
-  <div class="main-mistakes">
-    <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-  </div>
+  ${mistakes}
 
   <div class="main-wrap">
     <h2 class="title main-title">Кто исполняет эту песню?</h2>
@@ -33,32 +29,20 @@ const artistTemplate = createDomElement(`
       </div>
     </div>
     <form class="main-list">
-      <div class="main-answer-wrapper">
-        <input class="main-answer-r" type="radio" id="answer-1" name="answer" value="val-1"/>
-        <label class="main-answer" for="answer-1">
-          <img class="main-answer-preview" src="http://placehold.it/134x134"
-               alt="Пелагея" width="134" height="134">
-          Пелагея
-        </label>
-      </div>
-
-      <div class="main-answer-wrapper">
-        <input class="main-answer-r" type="radio" id="answer-2" name="answer" value="val-2"/>
-        <label class="main-answer" for="answer-2">
-          <img class="main-answer-preview" src="http://placehold.it/134x134"
-               alt="Краснознаменная дивизия имени моей бабушки" width="134" height="134">
-          Краснознаменная дивизия имени моей бабушки
-        </label>
-      </div>
-
-      <div class="main-answer-wrapper">
-        <input class="main-answer-r" type="radio" id="answer-3" name="answer" value="val-3"/>
-        <label class="main-answer" for="answer-3">
-          <img class="main-answer-preview" src="http://placehold.it/134x134"
-               alt="Lorde" width="134" height="134">
-          Lorde
-        </label>
-      </div>
+    
+${
+  Array(initialSettings.artistSong).fill().map((it, i) => (`
+  <div class="main-answer-wrapper">
+    <input class="main-answer-r" type="radio" id="answer-${i + 1}" name="answer" value="val-${i + 1}"/>
+    <label class="main-answer" for="answer-${i + 1}">
+      <img class="main-answer-preview" src="http://placehold.it/134x134"
+           alt="Пелагея" width="134" height="134">
+      Пелагея
+    </label>
+  </div>
+  `))
+}
+    
     </form>
   </div>
 </section>

@@ -1,5 +1,4 @@
-import createDomElement from '../createDomElement';
-import render from '../render';
+import {render, createDomElement} from "../core/util";
 import renderWelcomeScreen from "./welcome-sreen";
 
 const timeoutTemplate = createDomElement(`

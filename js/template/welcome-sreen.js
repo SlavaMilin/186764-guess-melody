@@ -1,5 +1,4 @@
-import createDomElement from '../createDomElement';
-import render from "../render";
+import {render, createDomElement} from "../core/util";
 import renderArtistScreen from './artist-screen';
 
 const welcomeTemplate = createDomElement(`
