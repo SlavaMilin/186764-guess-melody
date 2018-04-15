@@ -1,7 +1,4 @@
 const initialSettings = {
-  startScreen: 0,
-  startLives: 0,
-  maxLives: 3,
   artistScreen: 5,
   artistSong: 3,
   artistName: `artist`,
@@ -11,4 +8,11 @@ const initialSettings = {
   fastAnswer: 30
 };
 
-export {initialSettings};
+const initialState = {
+  lives: 3,
+  time: 300,
+  screen: 0,
+  answers: []
+};
+
+export {initialSettings, initialState};

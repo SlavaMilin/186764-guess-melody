@@ -1,7 +1,8 @@
 import {render, createDomElement} from "../core/util";
-import renderArtistScreen from './artist-screen';
+import {renderArtistScreen} from './artist-screen';
+import {initialState} from "../data/initialSettings";
 
-const welcomeTemplate = createDomElement(`
+const welcomeTemplate = () => createDomElement(`
 <section class="main main--welcome">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
   <button class="main-play">Начать игру</button>
@@ -15,8 +16,8 @@ const welcomeTemplate = createDomElement(`
 `);
 
 const renderWelcomeScreen = () => {
-  render(welcomeTemplate);
-  renderArtistScreen();
+  render(welcomeTemplate());
+  renderArtistScreen(initialState);
 };
 
-export default renderWelcomeScreen;
+export {renderWelcomeScreen};

@@ -1,5 +1,5 @@
 import {render, createDomElement} from "../core/util";
-import renderWelcomeScreen from './welcome-sreen';
+import {renderWelcomeScreen} from './welcome-sreen';
 
 const attemptsEndTemplate = createDomElement(`
 <section class="main main--result">

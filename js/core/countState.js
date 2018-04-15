@@ -1,9 +1,11 @@
-const countStatistic = (getAnswer, spendTime, data) => {
-  if (!data) {
-    data = {};
-    data.answers = [];
-    data.screen = 0;
-  }
+/**
+ *
+ * @param getAnswer {boolean}
+ * @param spendTime {int}
+ * @param data {object}
+ */
+
+const countState = (getAnswer, spendTime, data) => {
   const result = {};
   result.screen = data.screen + 1;
   result.answers = [{
@@ -14,4 +16,4 @@ const countStatistic = (getAnswer, spendTime, data) => {
   return result;
 };
 
-export {countStatistic};
+export {countState};
