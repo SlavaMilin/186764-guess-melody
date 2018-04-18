@@ -4,9 +4,7 @@ import {initialSettings} from "./data/initialSettings";
 
 const generateSound = (countSound) => {
   const array = shuffleData(data);
-  array.splice(0, countSound);
-
-  return array;
+  return array.splice(0, countSound);
 };
 
 

@@ -1,6 +1,6 @@
-import renderWinScreen from './template/result-win';
-import renderTimeoutScreen from './template/result-timeout';
-import renderAttemptsEndScreen from './template/result-attempts-end';
+import renderWinScreen from '../template/result-win';
+import renderTimeoutScreen from '../template/result-timeout';
+import renderAttemptsEndScreen from '../template/result-attempts-end';
 
 const validateMelody = () => {
   const btnSubmit = document.querySelector(`.genre-answer-send`);

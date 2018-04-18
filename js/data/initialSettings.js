@@ -1,5 +1,5 @@
 const initialSettings = {
-  artistScreen: 5,
+  artistScreen: 1,
   artistSong: 3,
   artistName: `artist`,
   genreScreen: 5,

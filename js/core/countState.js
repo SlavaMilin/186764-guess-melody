@@ -6,14 +6,19 @@
  */
 
 const countState = (getAnswer, spendTime, data) => {
-  const result = {};
-  result.screen = data.screen + 1;
-  result.answers = [{
-    correct: getAnswer,
-    time: spendTime
-  }, ...data.answers];
-
-  return result;
+  return {
+    currentScreen: data.screen,
+    set screen(value) {
+      this.currentScreen = value;
+    },
+    get screen() {
+      return this.currentScreen;
+    },
+    answers: [{
+      correct: getAnswer,
+      time: spendTime
+    }, ...data.answers]
+  };
 };
 
 export {countState};
