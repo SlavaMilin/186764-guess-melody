@@ -1,6 +1,6 @@
 import {render, createDomElement} from "../core/util";
 import {renderArtistScreen} from './artist-screen';
-import {initialState} from "../data/initialSettings";
+import {generateInitialState} from "../generateInitialState";
 
 const welcomeTemplate = () => createDomElement(`
 <section class="main main--welcome">
@@ -16,8 +16,10 @@ const welcomeTemplate = () => createDomElement(`
 `);
 
 const renderWelcomeScreen = () => {
+  const state = generateInitialState();
+
   render(welcomeTemplate());
-  renderArtistScreen(initialState);
-};
+  renderArtistScreen(state);
+}
 
 export {renderWelcomeScreen};

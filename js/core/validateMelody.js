@@ -12,20 +12,6 @@ const validateMelody = () => {
       btnSubmit.disabled = !checked;
     }
   });
-  form.addEventListener(`submit`, (evt) => {
-    evt.preventDefault();
-    const randomValue = Math.floor(Math.random() * 3);
-    switch (randomValue) {
-      case 0:
-        renderWinScreen();
-        break;
-      case 1:
-        renderTimeoutScreen();
-        break;
-      default:
-        renderAttemptsEndScreen();
-    }
-  });
 };
 
 export default validateMelody;

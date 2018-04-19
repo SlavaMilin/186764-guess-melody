@@ -1,7 +1,6 @@
 import {render, createDomElement} from "../core/util";
 import {timer} from "./timer";
 import {mistakes} from "./mistakes";
-import {gameData} from "../gameData";
 import validateMelody from '../core/validateMelody';
 import {audioSwitcher} from "../core/audioSwitcher";
 
@@ -31,23 +30,34 @@ const genreTemplate = (data) => createDomElement(`
 </section>
 `);
 
+const checkAnswer = (data) => {
+  let result = true;
+  const answer = document.querySelectorAll(`input[name="answer"]:checked`);
+  const correct = data.game[data.currentMelody].genre;
+  for (let i = 0; i < answer.length; i++) {
+    const current = data.game[+answer[i].value].genre;
+    if (correct !== current) {
+      result = false;
+    }
+  }
+  return result;
+};
+
 const genreView = (state) => {
 
-  render(genreTemplate(gameData[state.screen]));
+  render(genreTemplate(state.data[state.screen]));
 
-  const answer = document.querySelectorAll(`.main-answer`);
   const main = document.querySelector(`.main`);
+  const form = document.querySelector(`.genre`);
 
   main.insertAdjacentHTML(`afterbegin`, mistakes(state));
   main.insertAdjacentHTML(`afterbegin`, timer(state));
 
   audioSwitcher();
+  validateMelody();
 
-  answer.forEach((item) => {
-    item.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      validateMelody();
-    });
+  form.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
   });
 };
 

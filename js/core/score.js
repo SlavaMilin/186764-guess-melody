@@ -1,4 +1,4 @@
-import {initialSettings} from "../data/initialSettings";
+import {initialSettings} from "../data/initialState";
 
 const score = (answers) => {
   if (answers.length < 10) {

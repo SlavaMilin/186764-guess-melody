@@ -1,7 +1,7 @@
 import {render, createDomElement} from "../core/util";
 import {renderWelcomeScreen} from './welcome-sreen';
 
-const attemptsEndTemplate = createDomElement(`
+const attemptsEndTemplate = () => createDomElement(`
 <section class="main main--result">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
@@ -12,11 +12,11 @@ const attemptsEndTemplate = createDomElement(`
 `);
 
 const renderAttemptsEndScreen = () => {
-  render(attemptsEndTemplate);
+  render(attemptsEndTemplate());
   const playAgainBtn = document.querySelector(`.main-replay`);
   playAgainBtn.addEventListener(`click`, () => {
     renderWelcomeScreen();
   });
 };
 
-export default renderAttemptsEndScreen;
+export {renderAttemptsEndScreen};

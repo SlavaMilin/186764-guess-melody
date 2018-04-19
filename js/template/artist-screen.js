@@ -1,10 +1,9 @@
 import {render, createDomElement} from "../core/util";
-import {gameData} from "../gameData";
 import {timer} from "./timer";
 import {mistakes} from "./mistakes";
-import {initialSettings} from "../data/initialSettings";
 import {renderGenreScreen} from './genre-screen';
 import {audioSwitcher} from "../core/audioSwitcher";
+import {renderAttemptsEndScreen} from "./result-attempts-end";
 
 
 const artistTemplate = (data) => createDomElement(`
@@ -40,7 +39,7 @@ ${Array(data.game.length).fill().map((it, i) => (`
 
 const artistView = (state) => {
 
-  render(artistTemplate(gameData[state.screen]));
+  render(artistTemplate(state.data[state.screen]));
 
   const main = document.querySelector(`.main`);
   const listArtist = document.querySelector(`.main-list`);
@@ -50,12 +49,23 @@ const artistView = (state) => {
   main.insertAdjacentHTML(`afterbegin`, timer(state));
 
   listArtist.addEventListener(`click`, (evt) => {
-    if (evt.target.name === `answer` && +evt.target.value === gameData[state.screen].currentMelody) {
-      if (state.screen === initialSettings.artistScreen - 1) {
-        state.screen += 1;
+    if (evt.target.name === `answer`) {
+      state.data[state.screen].answer.time = 25;
+
+      if (+evt.target.value === state.data[state.screen].currentMelody) {
+        state.data[state.screen].answer.correct = true;
+      } else {
+        state.data[state.screen].answer.correct = false;
+        state.lives -= 1;
+      }
+
+      state.screen += 1;
+
+      if (!state.lives) {
+        renderAttemptsEndScreen();
+      } else if (state.data[state.screen].typeGame === `genre`) {
         renderGenreScreen(state);
       } else {
-        state.screen += 1;
         artistView(state);
       }
     }
