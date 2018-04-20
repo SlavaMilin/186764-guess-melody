@@ -1,6 +1,6 @@
 import {render, createDomElement} from "../core/util";
-import {renderArtistScreen} from './artist-screen';
 import {generateInitialState} from "../generateInitialState";
+import {screenSelecter} from "../screenSelecter";
 
 const welcomeTemplate = () => createDomElement(`
 <section class="main main--welcome">
@@ -14,12 +14,14 @@ const welcomeTemplate = () => createDomElement(`
   </p>
 </section>
 `);
-
 const renderWelcomeScreen = () => {
-  const state = generateInitialState();
-
   render(welcomeTemplate());
-  renderArtistScreen(state);
-}
+  const state = generateInitialState();
+  const btnPlay = document.querySelector(`.main-play`);
+
+  btnPlay.addEventListener(`click`, () => {
+    screenSelecter(state);
+  });
+};
 
 export {renderWelcomeScreen};

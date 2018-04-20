@@ -1,9 +1,8 @@
 import {render, createDomElement} from "../core/util";
 import {timer} from "./timer";
 import {mistakes} from "./mistakes";
-import {renderGenreScreen} from './genre-screen';
 import {audioSwitcher} from "../core/audioSwitcher";
-import {renderAttemptsEndScreen} from "./result-attempts-end";
+import {screenSelecter} from "../screenSelecter";
 
 
 const artistTemplate = (data) => createDomElement(`
@@ -38,50 +37,39 @@ ${Array(data.game.length).fill().map((it, i) => (`
 `);
 
 const artistView = (state) => {
+  const currentGame = state.data[state.screen];
 
-  render(artistTemplate(state.data[state.screen]));
+  render(artistTemplate(currentGame));
 
   const main = document.querySelector(`.main`);
   const listArtist = document.querySelector(`.main-list`);
-
 
   main.insertAdjacentHTML(`afterbegin`, mistakes(state));
   main.insertAdjacentHTML(`afterbegin`, timer(state));
 
   listArtist.addEventListener(`click`, (evt) => {
     if (evt.target.name === `answer`) {
-      state.data[state.screen].answer.time = 25;
+      let result = true;
 
-      if (+evt.target.value === state.data[state.screen].currentMelody) {
-        state.data[state.screen].answer.correct = true;
-      } else {
-        state.data[state.screen].answer.correct = false;
+      if (+evt.target.value !== currentGame.currentMelody) {
+        result = false;
         state.lives -= 1;
       }
 
+      state.answers.push({
+        correct: result,
+        time: 25
+      });
+
       state.screen += 1;
 
-      if (!state.lives) {
-        renderAttemptsEndScreen();
-      } else if (state.data[state.screen].typeGame === `genre`) {
-        renderGenreScreen(state);
-      } else {
-        artistView(state);
-      }
+      screenSelecter(state);
     }
   });
 
   audioSwitcher();
-
 };
 
-const renderArtistScreen = (state) => {
-  const btnPlay = document.querySelector(`.main-play`);
 
-  btnPlay.addEventListener(`click`, () => {
-    artistView(state);
-  });
-};
-
-export {renderArtistScreen};
+export {artistView};
 

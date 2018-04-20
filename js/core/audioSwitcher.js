@@ -5,15 +5,24 @@ const audioSwitcher = () => {
   for (let i = 0; i < audioControlBtn.length; i++) {
     audioControlBtn[i].classList.remove(`player-control--pause`);
     audioControlBtn[i].addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      for (let j = 0; j < audioControlBtn.length; j++) {
-        audioControlBtn[j].classList.remove(`player-control--pause`);
-        audio[j].pause();
-      }
-      if (!evt.target.classList.contains(`player-control--pause`)) {
+      if (evt.target.classList.contains(`player-control--pause`)) {
+        evt.target.classList.remove(`player-control--pause`);
+        audio[evt.target.dataset.index].pause();
+        evt.target.dataset.active = false;
+      } else {
+        const activeMelody = document.querySelector(`.player-control[data-active="true"]`);
+
+        if (activeMelody) {
+          activeMelody.classList.remove(`player-control--pause`);
+          audio[activeMelody.dataset.index].pause();
+          activeMelody.dataset.active = false;
+        }
+
+        evt.target.dataset.active = `true`;
         evt.target.classList.add(`player-control--pause`);
-        audio[evt.target.getAttribute(`data-index`)].play();
+        audio[evt.target.dataset.index].play();
       }
+      evt.preventDefault();
     });
   }
 };

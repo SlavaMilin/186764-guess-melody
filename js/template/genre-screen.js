@@ -1,8 +1,8 @@
 import {render, createDomElement} from "../core/util";
 import {timer} from "./timer";
 import {mistakes} from "./mistakes";
-import validateMelody from '../core/validateMelody';
 import {audioSwitcher} from "../core/audioSwitcher";
+import {screenSelecter} from "../screenSelecter";
 
 const genreTemplate = (data) => createDomElement(`
 <section class="main main--level main--level-genre">
@@ -30,22 +30,42 @@ const genreTemplate = (data) => createDomElement(`
 </section>
 `);
 
-const checkAnswer = (data) => {
+const checkAnswer = (state) => {
   let result = true;
+  const currentGame = state[state.screen];
   const answer = document.querySelectorAll(`input[name="answer"]:checked`);
-  const correct = data.game[data.currentMelody].genre;
+  const correct = currentGame.game[currentGame.currentMelody].genre;
   for (let i = 0; i < answer.length; i++) {
-    const current = data.game[+answer[i].value].genre;
+    const value = +answer[i].value;
+    const current = currentGame.game[value].genre;
     if (correct !== current) {
       result = false;
+      state.lives -= 1;
+      break;
     }
   }
-  return result;
+  state.answers.push({
+    correct: result,
+    time: 25
+  });
+};
+
+const validateMelody = () => {
+  const btnSubmit = document.querySelector(`.genre-answer-send`);
+  const form = document.querySelector(`.genre`);
+  btnSubmit.disabled = true;
+  form.addEventListener(`change`, (evt) => {
+    if (evt.target.name === `answer`) {
+      const checked = form.querySelectorAll(`input:checked`).length;
+      btnSubmit.disabled = !checked;
+    }
+  });
 };
 
 const genreView = (state) => {
+  const currentGame = state.data[state.screen];
 
-  render(genreTemplate(state.data[state.screen]));
+  render(genreTemplate(currentGame));
 
   const main = document.querySelector(`.main`);
   const form = document.querySelector(`.genre`);
@@ -58,11 +78,10 @@ const genreView = (state) => {
 
   form.addEventListener(`submit`, (evt) => {
     evt.preventDefault();
+    checkAnswer(state);
+    state.screen += 1;
+    screenSelecter(state);
   });
 };
 
-const renderGenreScreen = (state) => {
-  genreView(state);
-};
-
-export {renderGenreScreen};
+export {genreView};

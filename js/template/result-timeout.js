@@ -19,4 +19,4 @@ const renderTimeoutScreen = () => {
   });
 };
 
-export default renderTimeoutScreen;
+export {renderTimeoutScreen};
