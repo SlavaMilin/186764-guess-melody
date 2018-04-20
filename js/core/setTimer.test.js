@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import setTimer from './timer';
+import setTimer from './setTimer';
 
 const time = 30;
 

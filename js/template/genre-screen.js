@@ -1,101 +1,87 @@
-import createDomElement from '../createDomElement';
-import render from '../render';
-import validateMelody from '../validateMelody';
+import {render, createDomElement} from "../core/util";
+import {timer} from "./timer";
+import {mistakes} from "./mistakes";
+import {audioSwitcher} from "../core/audioSwitcher";
+import {screenSelecter} from "../screenSelecter";
 
-const genreTemplate = createDomElement(`
+const genreTemplate = (data) => createDomElement(`
 <section class="main main--level main--level-genre">
-  <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-    <circle
-      cx="390" cy="390" r="370"
-      class="timer-line"
-      style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-    <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-      <span class="timer-value-mins">05</span><!--
-      --><span class="timer-value-dots">:</span><!--
-      --><span class="timer-value-secs">00</span>
-    </div>
-  </svg>
-  <div class="main-mistakes">
-    <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-  </div>
-
   <div class="main-wrap">
-    <h2 class="title">Выберите инди-рок треки</h2>
+    <h2 class="title">Выберите ${data.game[data.currentMelody].genre} треки</h2>
     <form class="genre">
+    ${Array(data.game.length).fill().map((it, i) => (`
       <div class="genre-answer">
         <div class="player-wrapper">
           <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--pause"></button>
+            <audio src="${data.game[i].src}"></audio>
+            <button class="player-control player-control--pause" data-index="${i}"></button>
             <div class="player-track">
               <span class="player-status"></span>
             </div>
           </div>
         </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-1">
-        <label class="genre-answer-check" for="a-1"></label>
+        <input type="checkbox" name="answer" value="${i}" id="a-${i}">
+        <label class="genre-answer-check" for="a-${i}"></label>
       </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-2">
-        <label class="genre-answer-check" for="a-2"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-3">
-        <label class="genre-answer-check" for="a-3"></label>
-      </div>
-
-      <div class="genre-answer">
-        <div class="player-wrapper">
-          <div class="player">
-            <audio></audio>
-            <button class="player-control player-control--play"></button>
-            <div class="player-track">
-              <span class="player-status"></span>
-            </div>
-          </div>
-        </div>
-        <input type="checkbox" name="answer" value="answer-1" id="a-4">
-        <label class="genre-answer-check" for="a-4"></label>
-      </div>
-
+    `)).join(``)}
       <button class="genre-answer-send" type="submit">Ответить</button>
     </form>
   </div>
 </section>
 `);
 
-const renderGenreScreen = () => {
-  const answer = document.querySelectorAll(`.main-answer`);
-  answer.forEach((item) => {
-    item.addEventListener(`click`, (evt) => {
-      evt.preventDefault();
-      render(genreTemplate);
-      validateMelody();
-    });
+const checkAnswer = (state) => {
+  let result = true;
+  const currentGame = state[state.screen];
+  const answer = document.querySelectorAll(`input[name="answer"]:checked`);
+  const correct = currentGame.game[currentGame.currentMelody].genre;
+  for (let i = 0; i < answer.length; i++) {
+    const value = +answer[i].value;
+    const current = currentGame.game[value].genre;
+    if (correct !== current) {
+      result = false;
+      state.lives -= 1;
+      break;
+    }
+  }
+  state.answers.push({
+    correct: result,
+    time: 25
   });
 };
 
-export default renderGenreScreen;
+const validateMelody = () => {
+  const btnSubmit = document.querySelector(`.genre-answer-send`);
+  const form = document.querySelector(`.genre`);
+  btnSubmit.disabled = true;
+  form.addEventListener(`change`, (evt) => {
+    if (evt.target.name === `answer`) {
+      const checked = form.querySelectorAll(`input:checked`).length;
+      btnSubmit.disabled = !checked;
+    }
+  });
+};
+
+const genreView = (state) => {
+  const currentGame = state.data[state.screen];
+
+  render(genreTemplate(currentGame));
+
+  const main = document.querySelector(`.main`);
+  const form = document.querySelector(`.genre`);
+
+  main.insertAdjacentHTML(`afterbegin`, mistakes(state));
+  main.insertAdjacentHTML(`afterbegin`, timer(state));
+
+  audioSwitcher();
+  validateMelody();
+
+  form.addEventListener(`submit`, (evt) => {
+    evt.preventDefault();
+    checkAnswer(state);
+    state.screen += 1;
+    screenSelecter(state);
+  });
+};
+
+export {genreView};

@@ -1,6 +1,5 @@
-import createDomElement from '../createDomElement';
-import render from '../render';
-import renderWelcomeScreen from "./welcome-sreen";
+import {render, createDomElement} from "../core/util";
+import {renderWelcomeScreen} from "./welcome-sreen";
 
 const timeoutTemplate = createDomElement(`
 <section class="main main--result">
@@ -20,4 +19,4 @@ const renderTimeoutScreen = () => {
   });
 };
 
-export default renderTimeoutScreen;
+export {renderTimeoutScreen};

@@ -1,8 +1,8 @@
-import createDomElement from '../createDomElement';
-import render from "../render";
-import renderArtistScreen from './artist-screen';
+import {render, createDomElement} from "../core/util";
+import {generateInitialState} from "../generateInitialState";
+import {screenSelecter} from "../screenSelecter";
 
-const welcomeTemplate = createDomElement(`
+const welcomeTemplate = () => createDomElement(`
 <section class="main main--welcome">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
   <button class="main-play">Начать игру</button>
@@ -14,10 +14,14 @@ const welcomeTemplate = createDomElement(`
   </p>
 </section>
 `);
-
 const renderWelcomeScreen = () => {
-  render(welcomeTemplate);
-  renderArtistScreen();
+  render(welcomeTemplate());
+  const state = generateInitialState();
+  const btnPlay = document.querySelector(`.main-play`);
+
+  btnPlay.addEventListener(`click`, () => {
+    screenSelecter(state);
+  });
 };
 
-export default renderWelcomeScreen;
+export {renderWelcomeScreen};
