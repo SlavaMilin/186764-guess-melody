@@ -160,3 +160,5 @@ const screenSelecter = (state) => {
     GenreScreen.audioSwitcher();
   }
 };
+
+export {screenSelecter};
