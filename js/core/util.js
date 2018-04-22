@@ -1,26 +1,18 @@
 const place = document.querySelector(`.main`);
 
-/** input data in DOM
- *
- * @param html {object}
- */
-
 const render = (html) => {
   place.innerHTML = ``;
-  place.appendChild(html.cloneNode(true));
+  place.appendChild(html);
 };
 
-/** turns from string to HTML elements
- *
- * @param html {string}
- * @returns {object}
- */
-
-const createDomElement = (html) => {
+const createDomElement = (html = ``) => {
   const template = document.createElement(`template`);
-  html = html.trim();
-  template.innerHTML = html;
+  template.innerHTML = html.trim();
   return template.content;
+};
+
+const insertVidget = (html) => {
+  place.insertAdjacentHTML(`afterbegin`, html);
 };
 
 const calculateMin = (time) => {
@@ -33,4 +25,4 @@ const calculateSec = (time) => {
   return result < 10 ? `0` + result : result;
 };
 
-export {render, createDomElement, calculateMin, calculateSec};
+export {render, createDomElement, insertVidget, calculateMin, calculateSec};

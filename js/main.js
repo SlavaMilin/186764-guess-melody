@@ -1,4 +1,4 @@
-import {renderWelcomeScreen} from './template/welcome-sreen';
+import {screenSelecter} from "./screenSelecter";
 
-renderWelcomeScreen();
+screenSelecter();
 
