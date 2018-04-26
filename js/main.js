@@ -1,4 +1,4 @@
-import {screenSelecter} from "./screenSelecter";
+import {Application} from "./application";
 
-screenSelecter();
+Application.showWelcome();
 

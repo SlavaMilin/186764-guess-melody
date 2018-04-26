@@ -1,9 +1,9 @@
-import {data} from "./data/data";
-import {initialState} from "./data/initialState";
+import {MELODY_DATA} from "./data/melody-data";
+import {INITIAL_GAME} from "./data/melody";
 
 const generateInitialState = () => {
-  initialState.data = data;
-  return Object.assign({}, initialState);
+  INITIAL_GAME.data = MELODY_DATA;
+  return Object.assign({}, INITIAL_GAME);
 };
 
 export {generateInitialState};

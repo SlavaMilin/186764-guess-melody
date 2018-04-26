@@ -1,4 +1,5 @@
 import {AbstractView} from "../abstract-view";
+import {Application} from "../application";
 
 class WelcomeView extends AbstractView {
 
@@ -21,13 +22,10 @@ class WelcomeView extends AbstractView {
     `;
   }
 
-  onBtnPlayClick() {
-  }
-
   bind() {
     this.element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      this.onBtnPlayClick();
+      Application.showArtist();
     });
   }
 }

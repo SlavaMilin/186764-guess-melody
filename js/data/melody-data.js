@@ -1,4 +1,4 @@
-const data = [
+const MELODY_DATA = [
   {
     typeGame: `artist`,
     game: [
@@ -336,4 +336,4 @@ const data = [
   }
 ];
 
-export {data};
+export {MELODY_DATA};
