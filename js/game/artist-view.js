@@ -1,9 +1,10 @@
 import {AbstractView} from "../abstract-view";
 
 class ArtistView extends AbstractView {
-  constructor(data) {
+  constructor(model) {
     super();
-    this.data = data;
+    this.model = model;
+    this.data = model.getCurrentLevel;
     this.currentMelody = this.data.game.findIndex((it) => it.result);
   }
 
@@ -38,11 +39,19 @@ class ArtistView extends AbstractView {
     `;
   }
 
+  onAnswer() {
+  }
+
   bind() {
-    const main = this.element.querySelector(`.main-list`);
+    const answersList = this.element.querySelector(`.main-list`);
 
-    main.addEventListener(`change`, (evt) => {
+    answersList.addEventListener(`change`, (evt) => {
+      const answerIndex = +evt.target.value;
+      const answer = this.data.game[answerIndex];
 
+      if (answer) {
+        this.onAnswer(answer);
+      }
     });
   }
 

@@ -4,17 +4,17 @@ const INITIAL_GAME = {
   screen: 0
 };
 
-const changeLevel = (game, level) => {
+const changeScreen = (game, screen) => {
   return Object.assign({}, game, {
-    level
+    screen
   });
 };
 
-const loose = (game) => {
+const lose = (game) => {
   const lives = game.lives - 1;
   return Object.assign({}, game, {
     lives
   });
 };
 
-export {INITIAL_GAME, changeLevel, loose};
+export {INITIAL_GAME, changeScreen, lose};

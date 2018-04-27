@@ -1,8 +1,9 @@
 import {AbstractView} from "../abstract-view";
 
 class ResultLoseView extends AbstractView {
-  constructor() {
+  constructor(model) {
     super();
+    this.model = model;
   }
 
   get template() {

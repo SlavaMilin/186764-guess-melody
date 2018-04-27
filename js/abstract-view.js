@@ -1,10 +1,14 @@
-import {createDomElement} from "./core/util";
-
 class AbstractView {
   constructor() {
     if (new.target === AbstractView) {
       throw new Error(`Can't instantiate AbstractView, only concrete one`);
     }
+  }
+
+  createDomElement(html = ``) {
+    const template = document.createElement(`template`);
+    template.innerHTML = html.trim();
+    return template.content;
   }
 
   get template() {
@@ -15,13 +19,13 @@ class AbstractView {
     if (this._element) {
       return this._element;
     }
-    this._element = this.render();
+    this._element = this.render;
     this.bind(this._element);
     return this._element;
   }
 
-  render() {
-    return createDomElement(this.template);
+  get render() {
+    return this.createDomElement(this.template);
   }
 
   bind() {
