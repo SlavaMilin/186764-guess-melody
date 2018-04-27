@@ -1,4 +1,4 @@
-import {AbstractView} from "../abstract-view";
+import {AbstractView} from "./abstract-view";
 
 class ResultLoseView extends AbstractView {
   constructor(model) {
@@ -18,13 +18,13 @@ class ResultLoseView extends AbstractView {
     `;
   }
 
-  newGame() {
+  playAgain() {
   }
 
   bind() {
     const playAgainBtn = this.element.querySelector(`.main-replay`);
     playAgainBtn.addEventListener(`click`, () => {
-      this.newGame();
+      this.playAgain();
     });
   }
 }

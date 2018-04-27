@@ -1,12 +1,11 @@
-import {WelcomeView} from "./game/welcome-view";
 import {ArtistPresenter} from "./game/artist-presenter";
 import {GenrePresenter} from "./game/genre-presenter";
-import {MelodyModel} from "./data/melody-model";
-import {ResultLoseView} from "./game/result-lose-view";
-
-const place = document.querySelector(`.main`);
+import {WelcomePresenter} from "./game/welcome-presenter";
+import {ResultLosePresenter} from "./game/result-lose-presenter";
+import {ResultTimeoutPresenter} from "./game/result-timeout-presenter";
 
 const render = (html) => {
+  const place = document.querySelector(`.main`);
   place.innerHTML = ``;
   place.appendChild(html);
 };
@@ -14,13 +13,8 @@ const render = (html) => {
 class Application {
 
   static showWelcome() {
-    const welcome = new WelcomeView();
+    const welcome = new WelcomePresenter();
     render(welcome.element);
-  }
-
-  static startGame() {
-    const melodyModel = new MelodyModel();
-    gameSelector[melodyModel.typeGame](melodyModel);
   }
 
   static chooseGame(model) {
@@ -38,14 +32,13 @@ class Application {
   }
 
   static showLose(model) {
-    const loseScreen = new ResultLoseView(model);
-    loseScreen.newGame = Application.newGame;
+    const loseScreen = new ResultLosePresenter(model);
     render(loseScreen.element);
   }
 
-  static newGame() {
-    this.model.restart();
-    Application.chooseGame(this.model);
+  static showTimeout(model) {
+    const timeoutScreen = new ResultTimeoutPresenter(model);
+    render(timeoutScreen.element);
   }
 }
 

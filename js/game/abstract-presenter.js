@@ -1,20 +1,12 @@
 import {Application} from "../application";
 
 class AbstractPresenter {
-  onAnswer(answer) {
-    if (answer.result !== true) {
-      this.model.lose();
-    }
+  get element() {
+  }
 
-    if (this.model.isLose) {
-      Application.showLose(this.model);
-    }
-
-    this.model.nextScreen();
-
-    if (this.model.canContinue) {
-      Application.chooseGame(this.model);
-    }
+  playAgain() {
+    this.model.restart();
+    Application.chooseGame(this.model);
   }
 }
 

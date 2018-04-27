@@ -1,4 +1,4 @@
-import {AbstractView} from "../abstract-view";
+import {AbstractView} from "./abstract-view";
 import {calculateMin, calculateSec} from "../core/util";
 
 class TimerView extends AbstractView {

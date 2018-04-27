@@ -1,4 +1,4 @@
-import {INITIAL_GAME, changeScreen, lose} from "./melody";
+import {INITIAL_GAME, changeScreen, lose, tick, setAnswer} from "./melody";
 import {MELODY_DATA} from "./melody-data";
 
 const getLevel = (state) => MELODY_DATA[state.screen];
@@ -25,7 +25,11 @@ class MelodyModel {
   }
 
   get isLose() {
-    return this._state.lives <= 0 || this._state.time <= 0;
+    return this._state.lives <= 0;
+  }
+
+  get isTimeout() {
+    return this._state.time <= 0;
   }
 
   get isFinish() {
@@ -33,15 +37,23 @@ class MelodyModel {
   }
 
   get canContinue() {
-    return !this.isLose && !this.isFinish;
+    return !this.isLose && !this.isFinish && !this.isTimeout;
   }
 
   nextScreen() {
-    this._state = changeScreen(this._state, this._state.screen + 1);
+    this._state = changeScreen(this._state);
   }
 
   lose() {
     this._state = lose(this._state);
+  }
+
+  tick() {
+    this._state = tick(this._state);
+  }
+
+  setAnswer(answer) {
+    this._state = setAnswer(this._state, answer);
   }
 }
 
