@@ -9,10 +9,6 @@ class ResultLosePresenter extends AbstractPresenter {
     this.view.playAgain = this.playAgain;
     this.root = this.view.element;
   }
-
-  get element() {
-    return this.root;
-  }
 }
 
 export {ResultLosePresenter};

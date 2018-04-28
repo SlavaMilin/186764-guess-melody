@@ -1,14 +1,14 @@
 import {AbstractPresenter} from "./abstract-presenter";
-import {ResultTimeoutView} from "./result-timeout-view";
+import {ResultWinView} from "./result-win-view";
 
-class ResultTimeoutPresenter extends AbstractPresenter {
+class ResultWinPresenter extends AbstractPresenter {
   constructor(model) {
     super();
     this.model = model;
-    this.view = new ResultTimeoutView(this.model);
+    this.view = new ResultWinView(this.model);
     this.view.playAgain = this.playAgain;
     this.root = this.view.element;
   }
 }
 
-export {ResultTimeoutPresenter};
+export {ResultWinPresenter};

@@ -39,7 +39,7 @@ class ArtistView extends AbstractView {
     `;
   }
 
-  onAnswer() {
+  audioSwitcher() {
   }
 
   bind() {
@@ -53,6 +53,8 @@ class ArtistView extends AbstractView {
         this.onAnswer(answer);
       }
     });
+
+    this.audioSwitcher();
   }
 
 }

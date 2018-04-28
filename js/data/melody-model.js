@@ -40,6 +40,23 @@ class MelodyModel {
     return !this.isLose && !this.isFinish && !this.isTimeout;
   }
 
+  get score() {
+    const slowAnswers = this.state.answers.reduce((acc, it) => {
+      if (it.correct && it.time > 30) {
+        return +acc + 1;
+      }
+      return +acc;
+    }, 0);
+    const fastAnswers = this.state.answers.reduce((acc, it) => {
+      if (it.correct && it.time < 30) {
+        return +acc + 2;
+      }
+      return +acc;
+    }, 0);
+
+    return [slowAnswers + fastAnswers, fastAnswers];
+  }
+
   nextScreen() {
     this._state = changeScreen(this._state);
   }

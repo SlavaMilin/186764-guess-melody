@@ -21,7 +21,8 @@ class WelcomeView extends AbstractView {
     `;
   }
 
-  startGame() {}
+  startGame() {
+  }
 
   bind() {
     this.element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {

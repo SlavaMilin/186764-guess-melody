@@ -38,12 +38,28 @@ class GenreView extends AbstractView {
   onAnswer() {
   }
 
+  audioSwitcher() {
+  }
+
   bind() {
     const form = this.element.querySelector(`.genre`);
+    const btnSubmit = this.element.querySelector(`.genre-answer-send`);
+
+    btnSubmit.disabled = true;
+
     form.addEventListener(`submit`, (evt) => {
       evt.preventDefault();
       this.onAnswer();
     });
+
+    form.addEventListener(`change`, (evt) => {
+      if (evt.target.name === `answer`) {
+        const checked = form.querySelectorAll(`input:checked`).length;
+        btnSubmit.disabled = !checked;
+      }
+    });
+
+    this.audioSwitcher();
   }
 }
 

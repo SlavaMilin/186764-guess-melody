@@ -3,18 +3,13 @@ import {GenrePresenter} from "./game/genre-presenter";
 import {WelcomePresenter} from "./game/welcome-presenter";
 import {ResultLosePresenter} from "./game/result-lose-presenter";
 import {ResultTimeoutPresenter} from "./game/result-timeout-presenter";
-
-const render = (html) => {
-  const place = document.querySelector(`.main`);
-  place.innerHTML = ``;
-  place.appendChild(html);
-};
+import {ResultWinPresenter} from "./game/result-win-presenter";
 
 class Application {
 
   static showWelcome() {
     const welcome = new WelcomePresenter();
-    render(welcome.element);
+    welcome.render();
   }
 
   static chooseGame(model) {
@@ -23,22 +18,27 @@ class Application {
 
   static showArtist(model) {
     const artistScreen = new ArtistPresenter(model);
-    render(artistScreen.element);
+    artistScreen.render();
   }
 
   static showGenre(model) {
     const genreScreen = new GenrePresenter(model);
-    render(genreScreen.element);
+    genreScreen.render();
   }
 
   static showLose(model) {
     const loseScreen = new ResultLosePresenter(model);
-    render(loseScreen.element);
+    loseScreen.render();
+  }
+
+  static showWin(model) {
+    const winScreen = new ResultWinPresenter(model);
+    winScreen.render();
   }
 
   static showTimeout(model) {
     const timeoutScreen = new ResultTimeoutPresenter(model);
-    render(timeoutScreen.element);
+    timeoutScreen.render();
   }
 }
 
