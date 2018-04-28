@@ -42,6 +42,9 @@ class ArtistView extends AbstractView {
   audioSwitcher() {
   }
 
+  startTimer() {
+  }
+
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
 
@@ -55,6 +58,7 @@ class ArtistView extends AbstractView {
     });
 
     this.audioSwitcher();
+    this.startTimer();
   }
 
 }

@@ -1,14 +1,15 @@
 import {WelcomeView} from "./welcome-view";
 import {AbstractPresenter} from "./abstract-presenter";
-import {MelodyModel} from "../data/melody-model";
 import {Application} from "../application";
 
 class WelcomePresenter extends AbstractPresenter {
-  constructor() {
+  constructor(model) {
     super();
 
-    this.view = new WelcomeView();
+    this.model = model;
+    this.view = new WelcomeView(this.model);
     this.view.startGame = this.startGame;
+    this.view.startTimer = this.startTimer;
     this.root = this.view.element;
   }
 
@@ -17,8 +18,7 @@ class WelcomePresenter extends AbstractPresenter {
   }
 
   startGame() {
-    const model = new MelodyModel();
-    Application.chooseGame(model);
+    Application.chooseGame(this.model);
   }
 }
 

@@ -11,8 +11,11 @@ class ArtistPresenter extends AbstractPresenter {
 
     this.model = model;
     this.view = new ArtistView(this.model);
-    this.view.onAnswer = this.onAnswer;
+    this.view.startTimer = Util.startTimer;
+    this.view.stopTimer = Util.stopTimer;
+    this.view.updateTime = Util.updateTime;
     this.view.audioSwitcher = Util.audioSwitcher;
+    this.view.onAnswer = this.onAnswer;
 
     this.timer = new TimerView(this.model.state);
     this.mistakes = new MistakesView(this.model.state);
@@ -32,9 +35,11 @@ class ArtistPresenter extends AbstractPresenter {
     } else {
       this.model.nextScreen();
 
+      const roundTime = this.stopTimer();
+
       this.model.setAnswer({
         correct: answer.result,
-        time: 25
+        time: roundTime
       });
 
       if (this.model.isFinish) {

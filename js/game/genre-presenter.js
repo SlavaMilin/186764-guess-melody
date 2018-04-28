@@ -11,6 +11,9 @@ class GenrePresenter extends AbstractPresenter {
 
     this.model = model;
     this.view = new GenreView(this.model);
+    this.view.startTimer = Util.startTimer;
+    this.view.stopTimer = Util.stopTimer;
+    this.view.updateTime = Util.updateTime;
     this.view.onAnswer = this.onAnswer;
     this.view.audioSwitcher = Util.audioSwitcher;
 
@@ -38,12 +41,14 @@ class GenrePresenter extends AbstractPresenter {
     if (this.model.isLose) {
       Application.showLose(this.model);
     } else {
+      this.model.nextScreen();
+
+      const roundTime = this.stopTimer();
+
       this.model.setAnswer({
         correct: result,
-        time: 25
+        time: roundTime
       });
-
-      this.model.nextScreen();
 
       if (this.model.isFinish) {
         Application.showWin(this.model);

@@ -41,6 +41,9 @@ class GenreView extends AbstractView {
   audioSwitcher() {
   }
 
+  startTimer() {
+  }
+
   bind() {
     const form = this.element.querySelector(`.genre`);
     const btnSubmit = this.element.querySelector(`.genre-answer-send`);
@@ -60,6 +63,7 @@ class GenreView extends AbstractView {
     });
 
     this.audioSwitcher();
+    this.startTimer();
   }
 }
 
