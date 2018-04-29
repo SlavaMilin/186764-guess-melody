@@ -67,6 +67,11 @@ class Util {
     min.innerHTML = Util.calculateMin(currentTime);
     sec.innerHTML = Util.calculateSec(currentTime);
   }
+
+  static onError(error) {
+    const element = `<div style="position: absolute; text-align: center; left: 0; right: 0; top: 0; bottom: 0; padding-top: 53%; background-color: red; color: white; border-radius: 50%; font-size: 20px;">${error}</div>`;
+    document.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, element);
+  }
 }
 
 export {Util};

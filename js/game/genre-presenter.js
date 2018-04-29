@@ -31,19 +31,19 @@ class GenrePresenter extends AbstractPresenter {
 
     for (let i = 0; i < answers.length; i++) {
       const getValue = +answers[i].value;
-      if (!this.data.game[getValue].result) {
+      if (this.data.answers[getValue].genre !== this.data.genre) {
         result = false;
         this.model.lose();
         break;
       }
     }
 
+    const roundTime = this.stopTimer();
+
     if (this.model.isLose) {
       Application.showLose(this.model);
     } else {
       this.model.nextScreen();
-
-      const roundTime = this.stopTimer();
 
       this.model.setAnswer({
         correct: result,

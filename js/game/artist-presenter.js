@@ -26,19 +26,19 @@ class ArtistPresenter extends AbstractPresenter {
   }
 
   onAnswer(answer) {
-    if (answer.result !== true) {
+    if (answer.isCorrect !== true) {
       this.model.lose();
     }
+
+    const roundTime = this.stopTimer();
 
     if (this.model.isLose) {
       Application.showLose(this.model);
     } else {
       this.model.nextScreen();
 
-      const roundTime = this.stopTimer();
-
       this.model.setAnswer({
-        correct: answer.result,
+        correct: answer.isCorrect,
         time: roundTime
       });
 

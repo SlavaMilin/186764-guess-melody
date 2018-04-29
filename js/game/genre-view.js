@@ -11,13 +11,13 @@ class GenreView extends AbstractView {
     return `
     <section class="main main--level main--level-genre">
       <div class="main-wrap">
-        <h2 class="title">Выберите ${this.data.gameGenre} треки</h2>
+        <h2 class="title">${this.data.question}</h2>
         <form class="genre">
-        ${Array(this.data.game.length).fill().map((it, i) => (`
+        ${Array(this.data.answers.length).fill().map((it, i) => (`
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src="${this.data.game[i].src}"></audio>
+                <audio src="${this.data.answers[i].src}"></audio>
                 <button class="player-control player-control--pause" data-index="${i}"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
@@ -47,6 +47,8 @@ class GenreView extends AbstractView {
   bind() {
     const form = this.element.querySelector(`.genre`);
     const btnSubmit = this.element.querySelector(`.genre-answer-send`);
+
+    console.log(this.data.answers.findIndex((it) => it.genre === this.data.genre));
 
     btnSubmit.disabled = true;
 
