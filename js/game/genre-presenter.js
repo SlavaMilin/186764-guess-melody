@@ -11,9 +11,9 @@ class GenrePresenter extends AbstractPresenter {
 
     this.model = model;
     this.view = new GenreView(this.model);
-    this.view.startTimer = Util.startTimer;
-    this.view.stopTimer = Util.stopTimer;
-    this.view.updateTime = Util.updateTime;
+    this.view.startTimer = this.startTimer;
+    this.view.stopTimer = this.stopTimer;
+    this.view.updateTime = this.updateTime;
     this.view.onAnswer = this.onAnswer;
     this.view.audioSwitcher = Util.audioSwitcher;
 

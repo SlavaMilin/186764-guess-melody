@@ -15,7 +15,7 @@ class ArtistView extends AbstractView {
         <div class="player-wrapper">
           <div class="player">
             <audio src="${this.data.src}"></audio>
-            <button class="player-control" data-index="0"></button>
+            <button class="player-control player-control--pause" data-index="0"></button>
             <div class="player-track">
               <span class="player-status"></span>
             </div>
@@ -38,14 +38,11 @@ class ArtistView extends AbstractView {
     `;
   }
 
-  audioSwitcher() {
-  }
-
-  startTimer() {
-  }
-
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
+    const audioControlBtn = this.element.querySelector(`.player-control`);
+    const audio = this.element.querySelector(`audio`);
+
     console.log(this.data.answers.findIndex((it) => it.isCorrect));
 
     answersList.addEventListener(`change`, (evt) => {
@@ -57,8 +54,15 @@ class ArtistView extends AbstractView {
       }
     });
 
-    this.audioSwitcher();
-    this.startTimer();
+    audioControlBtn.addEventListener(`click`, (evt) => {
+      if (evt.target.classList.contains(`player-control--pause`)) {
+        evt.target.classList.remove(`player-control--pause`);
+        audio.pause();
+      } else {
+        evt.target.classList.add(`player-control--pause`);
+        audio.play();
+      }
+    });
   }
 
 }

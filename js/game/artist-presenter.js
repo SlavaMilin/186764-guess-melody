@@ -3,7 +3,6 @@ import {ArtistView} from "./artist-view";
 import {TimerView} from "./timer-view";
 import {MistakesView} from "./mistakes-view";
 import {Application} from "../application";
-import {Util} from "../core/util";
 
 class ArtistPresenter extends AbstractPresenter {
   constructor(model) {
@@ -11,11 +10,7 @@ class ArtistPresenter extends AbstractPresenter {
 
     this.model = model;
     this.view = new ArtistView(this.model);
-    this.view.startTimer = Util.startTimer;
-    this.view.stopTimer = Util.stopTimer;
-    this.view.updateTime = Util.updateTime;
-    this.view.audioSwitcher = Util.audioSwitcher;
-    this.view.onAnswer = this.onAnswer;
+    this.view.onAnswer = this.onAnswer.bind(this);
 
     this.timer = new TimerView(this.model.state);
     this.mistakes = new MistakesView(this.model.state);
@@ -23,6 +18,10 @@ class ArtistPresenter extends AbstractPresenter {
 
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.timer.template);
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.mistakes.template);
+  }
+
+  autoPlay() {
+    return document.querySelector(`audio`).play();
   }
 
   onAnswer(answer) {
