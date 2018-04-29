@@ -1,10 +1,11 @@
-import {AbstractView} from "../abstract-view";
+import {AbstractView} from "./abstract-view";
 
 class ArtistView extends AbstractView {
-  constructor(state) {
+  constructor(model) {
     super();
-    this.state = state;
-    this._currentGame = this.state.data[this.state.screen];
+    this.model = model;
+    this.data = model.getCurrentLevel;
+    this.currentMelody = this.data.game.findIndex((it) => it.result);
   }
 
   get template() {
@@ -14,7 +15,7 @@ class ArtistView extends AbstractView {
         <h2 class="title main-title">Кто исполняет эту песню?</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this._currentGame.game[this._currentGame.currentMelody].src}"></audio>
+            <audio src="${this.data.game[this.currentMelody].src}"></audio>
             <button class="player-control" data-index="0"></button>
             <div class="player-track">
               <span class="player-status"></span>
@@ -22,13 +23,13 @@ class ArtistView extends AbstractView {
           </div>
         </div>
         <form class="main-list">
-        ${Array(this._currentGame.game.length).fill().map((it, i) => (`
+        ${Array(this.data.game.length).fill().map((it, i) => (`
         <div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${i}"/>
           <label class="main-answer" for="answer-${i}">
-            <img class="main-answer-preview" src="${this._currentGame.game[i].image}"
-                 alt="${this._currentGame.game[i].artist}" width="134" height="134">
-            ${this._currentGame.game[i].artist}
+            <img class="main-answer-preview" src="${this.data.game[i].image}"
+                 alt="${this.data.game[i].artist}" width="134" height="134">
+            ${this.data.game[i].artist}
           </label>
         </div>
         `)).join(``)}
@@ -38,18 +39,26 @@ class ArtistView extends AbstractView {
     `;
   }
 
-  onArtistAnswerChange() {
-  }
-
   audioSwitcher() {
   }
 
-  bind() {
-    const main = this.element.querySelector(`.main-list`);
+  startTimer() {
+  }
 
-    main.addEventListener(`change`, (evt) => {
-      this.onArtistAnswerChange(evt);
+  bind() {
+    const answersList = this.element.querySelector(`.main-list`);
+
+    answersList.addEventListener(`change`, (evt) => {
+      const answerIndex = +evt.target.value;
+      const answer = this.data.game[answerIndex];
+
+      if (answer) {
+        this.onAnswer(answer);
+      }
     });
+
+    this.audioSwitcher();
+    this.startTimer();
   }
 
 }

@@ -1,4 +1,5 @@
-import {AbstractView} from "../abstract-view";
+import {AbstractView} from "./abstract-view";
+import {Util} from "../core/util";
 
 class TimerView extends AbstractView {
   constructor(state) {
@@ -15,18 +16,12 @@ class TimerView extends AbstractView {
         style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center">      
       </circle>
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">${this.calculateMin(this.state.time)}</span><!--
+        <span class="timer-value-mins">${Util.calculateMin(this.state.time)}</span><!--
         --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">${this.calculateSec(this.state.time)}</span>
+        --><span class="timer-value-secs">${Util.calculateSec(this.state.time)}</span>
       </div>      
       </svg>
     `;
-  }
-
-  calculateMin() {
-  }
-
-  calculateSec() {
   }
 }
 

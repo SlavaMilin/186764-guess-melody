@@ -1,9 +1,10 @@
-import {AbstractView} from "../abstract-view";
+import {AbstractView} from "./abstract-view";
 
 class WelcomeView extends AbstractView {
 
-  constructor() {
+  constructor(model) {
     super();
+    this.model = model;
   }
 
   get template() {
@@ -21,13 +22,13 @@ class WelcomeView extends AbstractView {
     `;
   }
 
-  onBtnPlayClick() {
+  startGame() {
   }
 
   bind() {
     this.element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
-      this.onBtnPlayClick();
+      this.startGame();
     });
   }
 }
