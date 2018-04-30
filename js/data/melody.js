@@ -2,6 +2,7 @@ const INITIAL_GAME = {
   lives: 3,
   time: 300,
   screen: 0,
+  score: 0,
   answers: []
 };
 

@@ -39,6 +39,25 @@ class Util {
     }
   }
 
+  static printingResult(playersResult = [], gameResult) {
+    let score = [];
+
+    for (let it of playersResult) {
+      if (it.score) {
+        score.push(it.score);
+      }
+    }
+
+    score.push(gameResult);
+    score.sort((a, b) => a - b);
+
+    const position = score.indexOf(gameResult) + 1;
+    const numberPlayers = score.length;
+    const positionPercent = Math.floor(((numberPlayers - position) / numberPlayers) * 100);
+
+    return `Вы заняли ${position} место из ${numberPlayers} игроков. Это лучше, чем у ${positionPercent}% игроков`;
+  }
+
   static onError(error) {
     const element = `
 <div style="

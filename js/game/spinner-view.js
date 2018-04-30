@@ -1,6 +1,6 @@
 import {AbstractView} from "./abstract-view";
 
-class StartView extends AbstractView {
+class SpinnerView extends AbstractView {
   constructor() {
     super();
   }
@@ -106,4 +106,4 @@ class StartView extends AbstractView {
   }
 }
 
-export {StartView};
+export {SpinnerView};

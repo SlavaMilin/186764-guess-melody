@@ -6,6 +6,10 @@ class ResultWinPresenter extends AbstractPresenter {
     super();
     this.model = model;
     this.view = new ResultWinView(this.model);
+    this.view.score = model.score;
+    this.model.saveScore({
+      score: model.score[0]
+    });
     this.view.playAgain = this.playAgain;
     this.root = this.view.element;
   }

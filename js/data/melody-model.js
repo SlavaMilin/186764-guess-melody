@@ -59,6 +59,18 @@ class MelodyModel {
     return [slowAnswers + fastAnswers, fastAnswers];
   }
 
+  gamesStatistic(statistic) {
+    this._gamesStatistic = statistic;
+  }
+
+  get getGamesStatistic() {
+    return this._gamesStatistic;
+  }
+
+  saveScore(score) {
+    this._state.score = score;
+  }
+
   nextScreen() {
     this._state = changeScreen(this._state);
   }

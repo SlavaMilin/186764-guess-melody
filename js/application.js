@@ -4,16 +4,20 @@ import {WelcomePresenter} from "./game/welcome-presenter";
 import {ResultLosePresenter} from "./game/result-lose-presenter";
 import {ResultTimeoutPresenter} from "./game/result-timeout-presenter";
 import {ResultWinPresenter} from "./game/result-win-presenter";
-import {StartPresenter} from "./game/start-presenter";
+import {SpinnerPresenter} from "./game/spinner-presenter";
 import {MelodyModel} from "./data/melody-model";
 import {Load} from "./load";
 import {Util} from "./core/util";
 
 class Application {
   static showWelcome() {
-    const start = new StartPresenter();
-    start.render();
-    Load.loadData().then((data) => onLoad(data)).catch((error) => Util.onError(error));
+    const spinnerScreen = new SpinnerPresenter();
+    spinnerScreen.render();
+    Load.loadData().then((data) => {
+      const model = new MelodyModel(data);
+      const welcome = new WelcomePresenter(model);
+      welcome.render();
+    }).catch(Util.onError);
   }
 
   static chooseGame(model) {
@@ -38,7 +42,12 @@ class Application {
 
   static showWin(model) {
     const winScreen = new ResultWinPresenter(model);
-    winScreen.render();
+    Load.downloadStatistic().then((statistic) => {
+      winScreen.model.gamesStatistic(statistic);
+      winScreen.render();
+    }).then(() => {
+      Load.uploadStatistic(winScreen.model.state.score);
+    }).catch(Util.onError);
   }
 
   static showTimeout(model) {
@@ -50,12 +59,6 @@ class Application {
 const gameSelector = {
   'artist': Application.showArtist,
   'genre': Application.showGenre
-};
-
-const onLoad = (data) => {
-  const model = new MelodyModel(data);
-  const welcome = new WelcomePresenter(model);
-  welcome.render();
 };
 
 export {Application};
