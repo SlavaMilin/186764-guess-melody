@@ -41,12 +41,12 @@ class Application {
   }
 
   static showWin(model) {
-    const winScreen = new ResultWinPresenter(model);
     Load.downloadStatistic().then((statistic) => {
-      winScreen.model.gamesStatistic(statistic);
+      model.gamesStatistic(statistic);
+      const winScreen = new ResultWinPresenter(model);
       winScreen.render();
     }).then(() => {
-      Load.uploadStatistic(winScreen.model.state.score);
+      Load.uploadStatistic(model.state.score);
     }).catch(Util.onError);
   }
 
