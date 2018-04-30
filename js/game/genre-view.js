@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class GenreView extends AbstractView {
   constructor(model) {
@@ -18,7 +18,7 @@ class GenreView extends AbstractView {
             <div class="player-wrapper">
               <div class="player">
                 <audio src="${this.data.answers[i].src}"></audio>
-                <button class="player-control player-control--pause" data-index="${i}"></button>
+                <button class="player-control" data-index="${i}"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
                 </div>
@@ -33,15 +33,6 @@ class GenreView extends AbstractView {
       </div>
     </section>
     `;
-  }
-
-  onAnswer() {
-  }
-
-  audioSwitcher() {
-  }
-
-  startTimer() {
   }
 
   bind() {
@@ -67,6 +58,39 @@ class GenreView extends AbstractView {
     this.audioSwitcher();
     this.startTimer();
   }
+
+  audioSwitcher() {
+    const audio = this.element.querySelectorAll(`audio`);
+    const audioControlBtn = this.element.querySelectorAll(`.player-control`);
+
+    audioControlBtn.forEach((it) => {
+
+      it.addEventListener(`click`, (evt) => {
+        evt.preventDefault();
+        if (evt.target.classList.contains(`player-control--pause`)) {
+          evt.target.classList.remove(`player-control--pause`);
+          audio[evt.target.dataset.index].pause();
+          evt.target.dataset.active = false;
+        } else {
+          const activeMelody = document.querySelector(`.player-control[data-active="true"]`);
+          if (activeMelody) {
+            activeMelody.classList.remove(`player-control--pause`);
+            audio[activeMelody.dataset.index].pause();
+            activeMelody.dataset.active = false;
+          }
+          evt.target.dataset.active = true;
+          evt.target.classList.add(`player-control--pause`);
+          audio[evt.target.dataset.index].play();
+        }
+      });
+    });
+  }
+
+  startTimer() {
+  }
+
+  onAnswer() {
+  }
 }
 
-export {GenreView};
+export default GenreView;

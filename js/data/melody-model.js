@@ -6,14 +6,6 @@ class MelodyModel {
     this.restart();
   }
 
-  restart() {
-    this._state = Object.assign({}, INITIAL_GAME);
-  }
-
-  getLevel(state) {
-    return this.data[state.screen];
-  }
-
   get state() {
     return this._state;
   }
@@ -56,19 +48,34 @@ class MelodyModel {
       return +acc;
     }, 0);
 
-    return [slowAnswers + fastAnswers, fastAnswers];
-  }
-
-  gamesStatistic(statistic) {
-    this._gamesStatistic = statistic;
+    return {
+      answers: slowAnswers + fastAnswers,
+      fastAnswers
+    };
   }
 
   get getGamesStatistic() {
     return this._gamesStatistic;
   }
 
-  saveScore(score) {
+  set setAnswer(answer) {
+    this._state = setAnswer(this._state, answer);
+  }
+
+  set gamesStatistic(statistic) {
+    this._gamesStatistic = statistic;
+  }
+
+  set saveScore(score) {
     this._state.score = score;
+  }
+
+  restart() {
+    this._state = Object.assign({}, INITIAL_GAME);
+  }
+
+  getLevel(state) {
+    return this.data[state.screen];
   }
 
   nextScreen() {
@@ -82,10 +89,6 @@ class MelodyModel {
   tick() {
     this._state = tick(this._state);
   }
-
-  setAnswer(answer) {
-    this._state = setAnswer(this._state, answer);
-  }
 }
 
-export {MelodyModel};
+export default MelodyModel;

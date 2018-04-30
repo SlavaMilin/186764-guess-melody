@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {Util} from "./util";
+import Util from "./util";
 
 const testResults = [
   {

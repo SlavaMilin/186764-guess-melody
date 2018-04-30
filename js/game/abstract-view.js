@@ -5,12 +5,6 @@ class AbstractView {
     }
   }
 
-  createDomElement(html = ``) {
-    const template = document.createElement(`template`);
-    template.innerHTML = html.trim();
-    return template.content;
-  }
-
   get template() {
     throw new Error(`Template is required`);
   }
@@ -28,8 +22,14 @@ class AbstractView {
     return this.createDomElement(this.template);
   }
 
+  createDomElement(html = ``) {
+    const template = document.createElement(`template`);
+    template.innerHTML = html.trim();
+    return template.content;
+  }
+
   bind() {
   }
 }
 
-export {AbstractView};
+export default AbstractView;

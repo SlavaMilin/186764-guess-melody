@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class MistakesView extends AbstractView {
   constructor(state) {
@@ -15,4 +15,4 @@ class MistakesView extends AbstractView {
 }
 
 
-export {MistakesView};
+export default MistakesView;

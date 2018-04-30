@@ -1,5 +1,5 @@
-import {AbstractPresenter} from "./abstract-presenter";
-import {SpinnerView} from "./spinner-view";
+import AbstractPresenter from "./abstract-presenter";
+import SpinnerView from "./spinner-view";
 
 class SpinnerPresenter extends AbstractPresenter {
   constructor() {
@@ -9,4 +9,4 @@ class SpinnerPresenter extends AbstractPresenter {
   }
 }
 
-export {SpinnerPresenter};
+export default SpinnerPresenter;

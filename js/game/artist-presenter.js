@@ -1,8 +1,8 @@
-import {AbstractPresenter} from "./abstract-presenter";
-import {ArtistView} from "./artist-view";
-import {TimerView} from "./timer-view";
-import {MistakesView} from "./mistakes-view";
-import {Application} from "../application";
+import AbstractPresenter from "./abstract-presenter";
+import ArtistView from "./artist-view";
+import TimerView from "./timer-view";
+import MistakesView from "./mistakes-view";
+import Application from "../application";
 
 class ArtistPresenter extends AbstractPresenter {
   constructor(model) {
@@ -20,10 +20,6 @@ class ArtistPresenter extends AbstractPresenter {
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.mistakes.template);
   }
 
-  autoPlay() {
-    return document.querySelector(`audio`).play();
-  }
-
   onAnswer(answer) {
     if (answer.isCorrect !== true) {
       this.model.lose();
@@ -36,10 +32,10 @@ class ArtistPresenter extends AbstractPresenter {
     } else {
       this.model.nextScreen();
 
-      this.model.setAnswer({
+      this.model.setAnswer = {
         correct: answer.isCorrect,
         time: roundTime
-      });
+      };
 
       if (this.model.isFinish) {
         Application.showWin(this.model);
@@ -50,6 +46,10 @@ class ArtistPresenter extends AbstractPresenter {
       }
     }
   }
+
+  autoPlay() {
+    return document.querySelector(`audio`).play();
+  }
 }
 
-export {ArtistPresenter};
+export default ArtistPresenter;

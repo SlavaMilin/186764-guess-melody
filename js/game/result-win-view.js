@@ -1,5 +1,5 @@
-import {AbstractView} from "./abstract-view";
-import {Util} from "../core/util";
+import AbstractView from "./abstract-view";
+import Util from "../core/util";
 
 class ResultWinView extends AbstractView {
   constructor(model) {
@@ -15,9 +15,9 @@ class ResultWinView extends AbstractView {
     
       <h2 class="title">Вы настоящий меломан!</h2>
       <div class="main-stat">За&nbsp;${Util.calculateMin(300 - this.state.time)}&nbsp;минуты и ${Util.calculateSec(300 - this.state.time)}&nbsp;секунд
-        <br>вы&nbsp;набрали ${this.score[0]} баллов (${this.score[1]} быстрых)
+        <br>вы&nbsp;набрали ${this.score.answers} баллов (${this.score.fastAnswers} быстрых)
         <br>совершив ${3 - this.state.lives} ошибки</div>
-      <span class="main-comparison">${Util.printingResult(this.model.getGamesStatistic, this.score[0])}</span>
+      <span class="main-comparison">${Util.printingResult(this.model.getGamesStatistic, this.score.answers)}</span>
       <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
     </section>
     `;
@@ -32,4 +32,4 @@ class ResultWinView extends AbstractView {
   }
 }
 
-export {ResultWinView};
+export default ResultWinView;

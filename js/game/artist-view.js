@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class ArtistView extends AbstractView {
   constructor(model) {
@@ -68,5 +68,5 @@ class ArtistView extends AbstractView {
 }
 
 
-export {ArtistView};
+export default ArtistView;
 

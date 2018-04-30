@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class WelcomeView extends AbstractView {
 
@@ -22,15 +22,15 @@ class WelcomeView extends AbstractView {
     `;
   }
 
-  startGame() {
-  }
-
   bind() {
     this.element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
       this.startGame();
     });
   }
+
+  startGame() {
+  }
 }
 
-export {WelcomeView};
+export default WelcomeView;

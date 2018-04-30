@@ -1,9 +1,8 @@
-import {GenreView} from "./genre-view";
-import {AbstractPresenter} from "./abstract-presenter";
-import {TimerView} from "./timer-view";
-import {MistakesView} from "./mistakes-view";
-import {Util} from "../core/util";
-import {Application} from "../application";
+import GenreView from "./genre-view";
+import AbstractPresenter from "./abstract-presenter";
+import TimerView from "./timer-view";
+import MistakesView from "./mistakes-view";
+import Application from "../application";
 
 class GenrePresenter extends AbstractPresenter {
   constructor(model) {
@@ -15,7 +14,6 @@ class GenrePresenter extends AbstractPresenter {
     this.view.stopTimer = this.stopTimer;
     this.view.updateTime = this.updateTime;
     this.view.onAnswer = this.onAnswer;
-    this.view.audioSwitcher = Util.audioSwitcher;
 
     this.timer = new TimerView(this.model.state);
     this.mistakes = new MistakesView(this.model.state);
@@ -29,8 +27,8 @@ class GenrePresenter extends AbstractPresenter {
 
     const answers = document.querySelectorAll(`input[name="answer"]:checked`);
 
-    for (let i = 0; i < answers.length; i++) {
-      const getValue = +answers[i].value;
+    for (let it of answers) {
+      const getValue = +it.value;
       if (this.data.answers[getValue].genre !== this.data.genre) {
         result = false;
         this.model.lose();
@@ -45,10 +43,10 @@ class GenrePresenter extends AbstractPresenter {
     } else {
       this.model.nextScreen();
 
-      this.model.setAnswer({
+      this.model.setAnswer = {
         correct: result,
         time: roundTime
-      });
+      };
 
       if (this.model.isFinish) {
         Application.showWin(this.model);
@@ -61,4 +59,4 @@ class GenrePresenter extends AbstractPresenter {
   }
 }
 
-export {GenrePresenter};
+export default GenrePresenter;

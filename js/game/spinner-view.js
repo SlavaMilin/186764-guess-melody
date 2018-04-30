@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class SpinnerView extends AbstractView {
   constructor() {
@@ -106,4 +106,4 @@ class SpinnerView extends AbstractView {
   }
 }
 
-export {SpinnerView};
+export default SpinnerView;

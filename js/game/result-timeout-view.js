@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class ResultTimeoutView extends AbstractView {
   constructor(model) {
@@ -18,14 +18,14 @@ class ResultTimeoutView extends AbstractView {
     `;
   }
 
-  playAgain() {
-  }
-
   bind() {
     const playAgainBtn = this.element.querySelector(`.main-replay`);
     playAgainBtn.addEventListener(`click`, () => {
       this.playAgain();
     });
   }
+
+  playAgain() {
+  }
 }
-export {ResultTimeoutView};
+export default ResultTimeoutView;

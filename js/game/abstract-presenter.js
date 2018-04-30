@@ -1,5 +1,5 @@
-import {Application} from "../application";
-import {Util} from "../core/util";
+import Application from "../application";
+import Util from "../core/util";
 
 class AbstractPresenter {
   constructor(model) {
@@ -45,4 +45,4 @@ class AbstractPresenter {
   }
 }
 
-export {AbstractPresenter};
+export default AbstractPresenter;

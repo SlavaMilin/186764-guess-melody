@@ -1,6 +1,6 @@
-import {WelcomeView} from "./welcome-view";
-import {AbstractPresenter} from "./abstract-presenter";
-import {Application} from "../application";
+import WelcomeView from "./welcome-view";
+import AbstractPresenter from "./abstract-presenter";
+import Application from "../application";
 
 class WelcomePresenter extends AbstractPresenter {
   constructor(model) {
@@ -22,4 +22,4 @@ class WelcomePresenter extends AbstractPresenter {
   }
 }
 
-export {WelcomePresenter};
+export default WelcomePresenter;

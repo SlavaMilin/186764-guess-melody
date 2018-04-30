@@ -1,4 +1,4 @@
-import {AbstractView} from "./abstract-view";
+import AbstractView from "./abstract-view";
 
 class ResultLoseView extends AbstractView {
   constructor(model) {
@@ -29,4 +29,4 @@ class ResultLoseView extends AbstractView {
   }
 }
 
-export {ResultLoseView};
+export default ResultLoseView;

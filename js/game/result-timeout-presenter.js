@@ -1,5 +1,5 @@
-import {AbstractPresenter} from "./abstract-presenter";
-import {ResultTimeoutView} from "./result-timeout-view";
+import AbstractPresenter from "./abstract-presenter";
+import ResultTimeoutView from "./result-timeout-view";
 
 class ResultTimeoutPresenter extends AbstractPresenter {
   constructor(model) {
@@ -11,4 +11,4 @@ class ResultTimeoutPresenter extends AbstractPresenter {
   }
 }
 
-export {ResultTimeoutPresenter};
+export default ResultTimeoutPresenter;

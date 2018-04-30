@@ -1,5 +1,5 @@
-import {AbstractView} from "./abstract-view";
-import {Util} from "../core/util";
+import AbstractView from "./abstract-view";
+import Util from "../core/util";
 
 class TimerView extends AbstractView {
   constructor(state) {
@@ -25,4 +25,4 @@ class TimerView extends AbstractView {
   }
 }
 
-export {TimerView};
+export default TimerView;
