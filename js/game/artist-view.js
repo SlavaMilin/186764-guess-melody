@@ -5,7 +5,6 @@ class ArtistView extends AbstractView {
     super();
     this.model = model;
     this.data = model.getCurrentLevel;
-    this.currentMelody = this.data.game.findIndex((it) => it.result);
   }
 
   get template() {
@@ -15,21 +14,21 @@ class ArtistView extends AbstractView {
         <h2 class="title main-title">Кто исполняет эту песню?</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this.data.game[this.currentMelody].src}"></audio>
-            <button class="player-control" data-index="0"></button>
+            <audio src="${this.data.src}"></audio>
+            <button class="player-control player-control--pause" data-index="0"></button>
             <div class="player-track">
               <span class="player-status"></span>
             </div>
           </div>
         </div>
         <form class="main-list">
-        ${Array(this.data.game.length).fill().map((it, i) => (`
+        ${Array(this.data.answers.length).fill().map((it, i) => (`
         <div class="main-answer-wrapper">
           <input class="main-answer-r" type="radio" id="answer-${i}" name="answer" value="${i}"/>
           <label class="main-answer" for="answer-${i}">
-            <img class="main-answer-preview" src="${this.data.game[i].image}"
-                 alt="${this.data.game[i].artist}" width="134" height="134">
-            ${this.data.game[i].artist}
+            <img class="main-answer-preview" src="${this.data.answers[i].image.url}"
+                 alt="${this.data.answers[i].title}" width="134" height="134">
+            ${this.data.answers[i].title}
           </label>
         </div>
         `)).join(``)}
@@ -39,26 +38,31 @@ class ArtistView extends AbstractView {
     `;
   }
 
-  audioSwitcher() {
-  }
-
-  startTimer() {
-  }
-
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
+    const audioControlBtn = this.element.querySelector(`.player-control`);
+    const audio = this.element.querySelector(`audio`);
+
+    console.log(this.data.answers.findIndex((it) => it.isCorrect));
 
     answersList.addEventListener(`change`, (evt) => {
       const answerIndex = +evt.target.value;
-      const answer = this.data.game[answerIndex];
+      const answer = this.data.answers[answerIndex];
 
       if (answer) {
         this.onAnswer(answer);
       }
     });
 
-    this.audioSwitcher();
-    this.startTimer();
+    audioControlBtn.addEventListener(`click`, (evt) => {
+      if (evt.target.classList.contains(`player-control--pause`)) {
+        evt.target.classList.remove(`player-control--pause`);
+        audio.pause();
+      } else {
+        evt.target.classList.add(`player-control--pause`);
+        audio.play();
+      }
+    });
   }
 
 }

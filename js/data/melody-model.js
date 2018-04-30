@@ -1,10 +1,8 @@
 import {INITIAL_GAME, changeScreen, lose, tick, setAnswer} from "./melody";
-import {MELODY_DATA} from "./melody-data";
-
-const getLevel = (state) => MELODY_DATA[state.screen];
 
 class MelodyModel {
-  constructor() {
+  constructor(data) {
+    this.data = data;
     this.restart();
   }
 
@@ -12,16 +10,20 @@ class MelodyModel {
     this._state = Object.assign({}, INITIAL_GAME);
   }
 
+  getLevel(state) {
+    return this.data[state.screen];
+  }
+
   get state() {
     return this._state;
   }
 
   get getCurrentLevel() {
-    return getLevel(this._state);
+    return this.getLevel(this._state);
   }
 
   get typeGame() {
-    return getLevel(this._state).typeGame;
+    return this.getLevel(this._state).type;
   }
 
   get isLose() {
@@ -33,7 +35,7 @@ class MelodyModel {
   }
 
   get isFinish() {
-    return this._state.screen >= MELODY_DATA.length;
+    return this._state.screen >= this.data.length;
   }
 
   get canContinue() {
@@ -55,6 +57,18 @@ class MelodyModel {
     }, 0);
 
     return [slowAnswers + fastAnswers, fastAnswers];
+  }
+
+  gamesStatistic(statistic) {
+    this._gamesStatistic = statistic;
+  }
+
+  get getGamesStatistic() {
+    return this._gamesStatistic;
+  }
+
+  saveScore(score) {
+    this._state.score = score;
   }
 
   nextScreen() {
