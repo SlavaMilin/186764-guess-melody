@@ -43,8 +43,6 @@ class ArtistView extends AbstractView {
     const audioControlBtn = this.element.querySelector(`.player-control`);
     const audio = this.element.querySelector(`audio`);
 
-    console.log(this.data.answers.findIndex((it) => it.isCorrect));
-
     answersList.addEventListener(`change`, (evt) => {
       const answerIndex = +evt.target.value;
       const answer = this.data.answers[answerIndex];

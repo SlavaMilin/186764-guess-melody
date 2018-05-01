@@ -30,12 +30,24 @@ class AbstractPresenter {
   }
 
   updateTime() {
+    const WARNING_TIME = 30;
     const currentTime = this.model.state.time;
     const min = document.querySelector(`.timer-value-mins`);
     const sec = document.querySelector(`.timer-value-secs`);
 
-    min.innerHTML = Util.calculateMin(currentTime);
-    sec.innerHTML = Util.calculateSec(currentTime);
+    const minuteValue = Util.calculateMin(currentTime);
+    const secondValue = Util.calculateSec(currentTime);
+
+    min.innerHTML = minuteValue;
+    sec.innerHTML = secondValue;
+
+    if (secondValue < WARNING_TIME && secondValue % 2) {
+      sec.style.color = `red`;
+      min.style.color = `red`;
+    } else {
+      sec.style.color = ``;
+      min.style.color = ``;
+    }
   }
 
   render() {

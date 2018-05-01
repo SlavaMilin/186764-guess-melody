@@ -39,8 +39,6 @@ class GenreView extends AbstractView {
     const form = this.element.querySelector(`.genre`);
     const btnSubmit = this.element.querySelector(`.genre-answer-send`);
 
-    console.log(this.data.answers.findIndex((it) => it.genre === this.data.genre));
-
     btnSubmit.disabled = true;
 
     form.addEventListener(`submit`, (evt) => {
