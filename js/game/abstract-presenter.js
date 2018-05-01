@@ -41,7 +41,7 @@ class AbstractPresenter {
     min.innerHTML = minuteValue;
     sec.innerHTML = secondValue;
 
-    if (secondValue < WARNING_TIME && secondValue % 2) {
+    if (currentTime < WARNING_TIME && secondValue % 2) {
       sec.style.color = `red`;
       min.style.color = `red`;
     } else {
