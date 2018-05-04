@@ -46,6 +46,23 @@ class Util {
 </div>`;
     document.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, element);
   }
+
+  static addAudioLoaders(links) {
+    const loaders = [];
+
+    links.forEach((it) => {
+      return loaders.push(new Promise((onSuccess, onError) => {
+        const audio = new Audio();
+        audio.addEventListener(`canplaythrough`, () => onSuccess(audio));
+        audio.onerror = () => {
+          onError(`Произошла ошибка при загрузке данных. Пожалуйста, перезагрузите страницу.`);
+        };
+        audio.src = it;
+      }));
+    });
+
+    return loaders;
+  }
 }
 
 export default Util;

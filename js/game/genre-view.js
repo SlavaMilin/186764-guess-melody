@@ -78,7 +78,7 @@ class GenreView extends AbstractView {
           }
           evt.target.dataset.active = true;
           evt.target.classList.add(`player-control--pause`);
-          audio[evt.target.dataset.index].play();
+          audio[evt.target.dataset.index].play().catch(() => {});
         }
       });
     });

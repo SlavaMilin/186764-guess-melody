@@ -13,7 +13,7 @@ class ArtistPresenter extends AbstractPresenter {
     this.view.onAnswer = this.onAnswer.bind(this);
 
     this.timer = new TimerView(this.model.state);
-    this.mistakes = new MistakesView(this.model.state);
+    this.mistakes = new MistakesView(this.model);
     this.root = this.view.element;
 
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.timer.template);
@@ -45,10 +45,6 @@ class ArtistPresenter extends AbstractPresenter {
         Application.chooseGame(this.model);
       }
     }
-  }
-
-  autoPlay() {
-    return document.querySelector(`audio`).play();
   }
 }
 

@@ -14,7 +14,7 @@ class ArtistView extends AbstractView {
         <h2 class="title main-title">Кто исполняет эту песню?</h2>
         <div class="player-wrapper">
           <div class="player">
-            <audio src="${this.data.src}"></audio>
+            <audio src="${this.data.src}" autoplay="true"></audio>
             <button class="player-control player-control--pause" data-index="0"></button>
             <div class="player-track">
               <span class="player-status"></span>
@@ -52,13 +52,15 @@ class ArtistView extends AbstractView {
       }
     });
 
+    audio.play().catch(() => {});
+
     audioControlBtn.addEventListener(`click`, (evt) => {
       if (evt.target.classList.contains(`player-control--pause`)) {
         evt.target.classList.remove(`player-control--pause`);
         audio.pause();
       } else {
         evt.target.classList.add(`player-control--pause`);
-        audio.play();
+        audio.play().catch(() => {});
       }
     });
   }

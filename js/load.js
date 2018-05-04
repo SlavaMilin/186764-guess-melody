@@ -33,4 +33,4 @@ class Load {
   }
 }
 
-export {Load};
+export default Load;

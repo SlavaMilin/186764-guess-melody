@@ -34,16 +34,28 @@ class MelodyModel {
     return !this.isLose && !this.isFinish && !this.isTimeout;
   }
 
+  get initialLives() {
+    return INITIAL_GAME.lives;
+  }
+
+  get initialTime() {
+    return INITIAL_GAME.time;
+  }
+
   get score() {
+    const FAST_ANSWER = 30;
+    const CORRECT_POINTS = 1;
+    const QUICK_POINTS = 2;
+
     const slowAnswers = this.state.answers.reduce((acc, it) => {
-      if (it.correct && it.time > 30) {
-        return +acc + 1;
+      if (it.correct && it.time > FAST_ANSWER) {
+        return +acc + CORRECT_POINTS;
       }
       return +acc;
     }, 0);
     const fastAnswers = this.state.answers.reduce((acc, it) => {
-      if (it.correct && it.time < 30) {
-        return +acc + 2;
+      if (it.correct && it.time < FAST_ANSWER) {
+        return +acc + QUICK_POINTS;
       }
       return +acc;
     }, 0);
@@ -56,6 +68,17 @@ class MelodyModel {
 
   get getGamesStatistic() {
     return this._gamesStatistic;
+  }
+
+  gameMusicsSrc() {
+    const links = new Set();
+    this.data.forEach((item) => {
+      if (item.type === `genre`) {
+        return item.answers.forEach((it) => links.add(it.src));
+      }
+      return links.add(item.src);
+    });
+    return links;
   }
 
   set setAnswer(answer) {

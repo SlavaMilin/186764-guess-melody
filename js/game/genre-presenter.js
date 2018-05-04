@@ -16,7 +16,7 @@ class GenrePresenter extends AbstractPresenter {
     this.view.onAnswer = this.onAnswer;
 
     this.timer = new TimerView(this.model.state);
-    this.mistakes = new MistakesView(this.model.state);
+    this.mistakes = new MistakesView(this.model);
     this.root = this.view.element;
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.timer.template);
     this.root.querySelector(`.main`).insertAdjacentHTML(`afterbegin`, this.mistakes.template);

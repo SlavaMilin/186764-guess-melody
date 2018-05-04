@@ -6,17 +6,19 @@ import ResultTimeoutPresenter from "./game/result-timeout-presenter";
 import ResultWinPresenter from "./game/result-win-presenter";
 import SpinnerPresenter from "./game/spinner-presenter";
 import MelodyModel from "./data/melody-model";
-import {Load} from "./load";
+import Load from "./load";
 import Util from "./core/util";
 
 class Application {
   static showWelcome() {
     const spinnerScreen = new SpinnerPresenter();
     spinnerScreen.render();
+
     Load.loadData().then((data) => {
       const model = new MelodyModel(data);
       const welcome = new WelcomePresenter(model);
-      welcome.render();
+      const links = Util.addAudioLoaders(model.gameMusicsSrc());
+      Promise.all(links).then(() => welcome.render());
     }).catch(Util.onError);
   }
 
@@ -27,7 +29,7 @@ class Application {
   static showArtist(model) {
     const artistScreen = new ArtistPresenter(model);
     artistScreen.render();
-    artistScreen.autoPlay().then(artistScreen.startTimer());
+    artistScreen.startTimer();
   }
 
   static showGenre(model) {

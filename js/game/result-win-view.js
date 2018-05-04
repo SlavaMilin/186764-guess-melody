@@ -14,9 +14,9 @@ class ResultWinView extends AbstractView {
       <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
     
       <h2 class="title">Вы настоящий меломан!</h2>
-      <div class="main-stat">За&nbsp;${Util.calculateMin(300 - this.state.time)}&nbsp;минуты и ${Util.calculateSec(300 - this.state.time)}&nbsp;секунд
+      <div class="main-stat">За&nbsp;${Util.calculateMin(this.model.initialTime - this.state.time)}&nbsp;минуты и ${Util.calculateSec(this.model.initialTime - this.state.time)}&nbsp;секунд
         <br>вы&nbsp;набрали ${this.score.answers} баллов (${this.score.fastAnswers} быстрых)
-        <br>совершив ${3 - this.state.lives} ошибки</div>
+        <br>совершив ${this.model.initialLives - this.state.lives} ошибки</div>
       <span class="main-comparison">${Util.printingResult(this.model.getGamesStatistic, this.score.answers)}</span>
       <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
     </section>
