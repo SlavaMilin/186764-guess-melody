@@ -1,12 +1,14 @@
 class Util {
   static calculateMin(time) {
+    const minTimeFormat = 10;
     const result = Math.floor(time / 60);
-    return result < 10 ? `0` + result : result;
+    return result < minTimeFormat ? `0` + result : result;
   }
 
   static calculateSec(time) {
+    const minTimeFormat = 10;
     const result = Math.floor(time % 60);
-    return result < 10 ? `0` + result : result;
+    return result < minTimeFormat ? `0` + result : result;
   }
 
   static printingResult(playersResult = [], gameResult) {
